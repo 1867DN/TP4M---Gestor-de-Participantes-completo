@@ -1,6 +1,7 @@
 import { useParticipantes } from '../context/ParticipantesContext';
+import { Participante } from '../models/Participante';
 
-export const ParticipanteCard = ({ id, nombre, email, edad, ciudad }: any) => {
+export const ParticipanteCard = ({ id, nombre, email, edad, ciudad }: Participante) => {
   const { eliminar } = useParticipantes();
 
   const handleEliminar = async () => {
