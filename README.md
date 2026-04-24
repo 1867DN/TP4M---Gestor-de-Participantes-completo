@@ -49,7 +49,7 @@ La aplicación permite:
 ### Opción 1: Script Automático (Recomendado)
 
 ```bash
-cd tp4M
+cd tp4M/autom
 run.bat
 ```
 
@@ -87,13 +87,19 @@ npm run dev
 
 ```
 tp4M/
+├── autom/
+│   ├── run.bat                     # Arranca backend, frontend y navegador
+│   ├── seed_participantes.bat      # Agrega 10 participantes de prueba
+│   └── seed_participantes.py       # Script Python del seed
+│
 ├── backend/
 │   ├── main.py                 # API FastAPI con 3 endpoints
 │   ├── models.py               # Modelos SQLAlchemy
 │   ├── schemas.py              # Validación Pydantic
-│   ├── database.py             # Configuración MySQL
-│   ├── requirements.txt         # Dependencias Python
-│   └── .env                    # Variables de entorno
+│   ├── database.py             # Configuración MySQL (lee desde .env)
+│   ├── requirements.txt        # Dependencias Python
+│   ├── create_db.sql           # Script SQL para BD
+│   └── .env                    # Credenciales de base de datos
 │
 ├── frontend/
 │   ├── src/
@@ -102,7 +108,7 @@ tp4M/
 │   │   ├── components/
 │   │   │   ├── Formulario.tsx              # Form agregar participante
 │   │   │   ├── ParticipanteCard.tsx        # Tarjeta de participante
-│   │   │   └── Filtros.tsx                 # Búsqueda
+│   │   │   └── Filtros.tsx                 # Búsqueda (definido, no montado)
 │   │   ├── models/
 │   │   │   └── Participante.ts             # Interfaz TypeScript
 │   │   ├── Home.tsx                        # Página principal
@@ -111,8 +117,6 @@ tp4M/
 │   ├── vite.config.ts
 │   └── tsconfig.json
 │
-├── run.bat                     # Script de ejecución automática
-├── create_db.sql               # Script SQL para BD
 ├── INSTALACIÓN_Y_USO.md        # Guía de instalación
 ├── GUÍA_TÉCNICA.md             # Documentación técnica
 └── README.md                   # Este archivo
@@ -192,7 +196,10 @@ DESCRIBE tp4m_db.participantes;
 
 ```bash
 # Abrir la aplicación
-run.bat
+autom\run.bat
+
+# Agregar participantes de prueba (con el backend corriendo)
+autom\seed_participantes.bat
 
 # Eliminar base de datos (si necesitas reiniciar)
 # En MySQL Workbench:

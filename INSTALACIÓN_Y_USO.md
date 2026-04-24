@@ -8,7 +8,7 @@
 2. **Abre una terminal en la carpeta `tp4M`**
 3. **Ejecuta:**
 ```bash
-run.bat
+autom\run.bat
 ```
 
 Esto hará todo automáticamente:
@@ -111,14 +111,18 @@ Deberías ver todos los participantes registrados.
 
 ```
 tp4M/
+├── autom/
+│   ├── run.bat                   # Arranca backend, frontend y navegador
+│   ├── seed_participantes.bat    # Agrega 10 participantes de prueba
+│   └── seed_participantes.py     # Script Python del seed
 ├── backend/
 │   ├── main.py           # API FastAPI
 │   ├── models.py         # Modelos SQLAlchemy
 │   ├── schemas.py        # Esquemas Pydantic
-│   ├── database.py       # Configuración MySQL
+│   ├── database.py       # Configuración MySQL (lee desde .env)
 │   ├── requirements.txt
-│   ├── .env
-│   └── .gitignore
+│   ├── create_db.sql     # Script SQL para crear BD
+│   └── .env              # Credenciales de base de datos
 ├── frontend/
 │   ├── src/
 │   │   ├── context/
@@ -134,8 +138,6 @@ tp4M/
 │   ├── package.json
 │   ├── vite.config.ts
 │   └── index.html
-├── run.bat              # Script automatizado
-├── create_db.sql        # Script SQL para crear BD
 └── README.md
 ```
 

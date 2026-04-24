@@ -21,8 +21,10 @@ backend/
 ├── main.py          # Endpoints API
 ├── models.py        # Modelos SQLAlchemy (BD)
 ├── schemas.py       # Esquemas Pydantic (validación)
-├── database.py      # Conexión MySQL
-└── requirements.txt # Dependencias
+├── database.py      # Conexión MySQL (lee desde .env)
+├── requirements.txt # Dependencias
+├── create_db.sql    # Script SQL de la tabla
+└── .env             # Credenciales de base de datos
 ```
 
 ### Endpoints
@@ -60,16 +62,26 @@ backend/
 
 ### Configuración de Base de Datos
 
-Archivo: `database.py`
+Las credenciales se leen desde `backend/.env`. Para cambiarlas, editar ese archivo:
 
-```python
-DATABASE_URL = "mysql+mysqlconnector://root:root@localhost:3306/tp4m_db"
+```
+DB_USER=root
+DB_PASSWORD=root
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=tp4m_db
 ```
 
-- **Usuario:** root
-- **Contraseña:** root
-- **Host:** localhost:3306
-- **Base de datos:** tp4m_db
+`database.py` construye la URL de conexión a partir de esas variables:
+
+```python
+DB_USER = os.getenv("DB_USER", "root")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "root")
+DB_HOST = os.getenv("DB_HOST", "localhost")
+DB_PORT = os.getenv("DB_PORT", "3306")
+DB_NAME = os.getenv("DB_NAME", "tp4m_db")
+DATABASE_URL = f"mysql+mysqlconnector://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+```
 
 ### Tabla Participantes
 
