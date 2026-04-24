@@ -2,6 +2,8 @@
 REM Script para ejecutar automaticamente Backend, Frontend y abrir navegador
 REM Gestor de Participantes - TP4M
 
+cd /d "%~dp0.."
+
 REM Leer credenciales desde backend\.env
 for /f "usebackq tokens=1,2 delims==" %%a in ("backend\.env") do (
     if "%%a"=="DB_USER" set DB_USER=%%b
