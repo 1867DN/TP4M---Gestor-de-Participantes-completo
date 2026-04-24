@@ -2,6 +2,15 @@
 REM Script para ejecutar automaticamente Backend, Frontend y abrir navegador
 REM Gestor de Participantes - TP4M
 
+REM Leer credenciales desde backend\.env
+for /f "usebackq tokens=1,2 delims==" %%a in ("backend\.env") do (
+    if "%%a"=="DB_USER" set DB_USER=%%b
+    if "%%a"=="DB_PASSWORD" set DB_PASSWORD=%%b
+    if "%%a"=="DB_HOST" set DB_HOST=%%b
+    if "%%a"=="DB_PORT" set DB_PORT=%%b
+    if "%%a"=="DB_NAME" set DB_NAME=%%b
+)
+
 echo.
 echo ====================================
 echo    GESTOR DE PARTICIPANTES - TP4M
@@ -10,13 +19,12 @@ echo.
 
 REM Verificar que MySQL este ejecutandose
 echo [1/5] Verificando MySQL...
-mysql -u root -proot -e "SELECT 1" >nul 2>&1
+mysql -u %DB_USER% -p"%DB_PASSWORD%" -e "SELECT 1" >nul 2>&1
 if errorlevel 1 (
     echo ERROR: MySQL no esta ejecutandose o credenciales incorrectas.
     echo Asegurate de:
     echo   - MySQL este iniciado
-    echo   - Usuario: root
-    echo   - Contrasena: root
+    echo   - Edita backend\.env con tu usuario y contrasena correctos
     pause
     exit /b 1
 )
@@ -25,7 +33,7 @@ echo OK - MySQL esta ejecutandose
 REM Crear base de datos
 echo.
 echo [2/5] Creando base de datos...
-mysql -u root -proot -e "CREATE DATABASE IF NOT EXISTS tp4m_db;"
+mysql -u %DB_USER% -p"%DB_PASSWORD%" -e "CREATE DATABASE IF NOT EXISTS %DB_NAME%;"
 if errorlevel 1 (
     echo ERROR: No se pudo crear la BD
     pause
